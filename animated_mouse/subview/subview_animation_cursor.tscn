@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=3 uid="uid://barwx4milnind"]
+
+[ext_resource type="Script" uid="uid://u8u6hottl0g3" path="res://animated_mouse/subview/subview_animation_cursor.gd" id="1_ur0up"]
+[ext_resource type="Texture2D" uid="uid://dbck1vicu77v2" path="res://assets/cursors/crosshair011.png" id="2_0anl3"]
+[ext_resource type="Texture2D" uid="uid://ymgf4ksx51ms" path="res://assets/cursors/crosshair009.png" id="3_tjfdi"]
+[ext_resource type="Texture2D" uid="uid://bgspuji0rqpnc" path="res://assets/cursors/crosshair010.png" id="4_g3db0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uv8gc"]
+atlas = ExtResource("2_0anl3")
+region = Rect2(0, 0, 144, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nl6b5"]
+atlas = ExtResource("3_tjfdi")
+region = Rect2(0, 0, 144, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v1sx8"]
+atlas = ExtResource("4_g3db0")
+region = Rect2(0, 0, 144, 144)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ur0up"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uv8gc")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nl6b5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v1sx8")
+}],
+"loop": true,
+"name": &"runing",
+"speed": 5.0
+}]
+
+[node name="SubviewAnimationCursor" type="SubViewport" node_paths=PackedStringArray("cursor_animated_sprite2d")]
+render_target_update_mode = 4
+script = ExtResource("1_ur0up")
+cursor_animated_sprite2d = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(36, 36)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_ur0up")
+animation = &"idle"
