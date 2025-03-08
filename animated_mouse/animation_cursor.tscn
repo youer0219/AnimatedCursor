@@ -1,18 +1,43 @@
-[gd_scene load_steps=3 format=3 uid="uid://barwx4milnind"]
+[gd_scene load_steps=8 format=3 uid="uid://barwx4milnind"]
 
 [ext_resource type="Script" uid="uid://u8u6hottl0g3" path="res://animated_mouse/animation_cursor.gd" id="1_27tul"]
+[ext_resource type="Texture2D" uid="uid://ymgf4ksx51ms" path="res://assets/cursors/crosshair009.png" id="2_krwmn"]
+[ext_resource type="Texture2D" uid="uid://dbck1vicu77v2" path="res://assets/cursors/crosshair011.png" id="2_qhvrh"]
+[ext_resource type="Texture2D" uid="uid://bgspuji0rqpnc" path="res://assets/cursors/crosshair010.png" id="3_xt3fa"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bi8it"]
+atlas = ExtResource("2_krwmn")
+region = Rect2(0, 0, 144, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g64g6"]
+atlas = ExtResource("3_xt3fa")
+region = Rect2(0, 0, 144, 144)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ffof7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bi8it")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g64g6")
+}],
+"loop": true,
+"name": &"runing",
+"speed": 5.0
+}]
 
 [node name="SubviewAnimationCursor" type="SubViewport"]
 disable_3d = true
 transparent_bg = true
-size = Vector2i(2, 2)
+size = Vector2i(72, 72)
 render_target_update_mode = 4
 script = ExtResource("1_27tul")
 sprite_frames = SubResource("SpriteFrames_ffof7")
+default_cursor_image = ExtResource("2_qhvrh")
 
 [node name="CursorAnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(36, 36)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_ffof7")
+animation = &"runing"
