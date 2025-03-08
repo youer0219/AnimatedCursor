@@ -1,6 +1,5 @@
 @tool
 extends SubViewport
-class_name SubviewAnimationCursor
 
 @export var enable:bool = true:
 	set(value):
@@ -14,7 +13,6 @@ class_name SubviewAnimationCursor
 			#cursor_animated_sprite2d.stop()
 
 @export var sprite_frames:SpriteFrames = SpriteFrames.new()
-@export var cursor_animation_data_array:Array[CursorAnimationData]
 
 @onready var cursor_animated_sprite_2d: AnimatedSprite2D = $CursorAnimatedSprite2D
 
@@ -23,17 +21,24 @@ func _ready() -> void:
 	transparent_bg = true
 	disable_3d = true
 	render_target_update_mode = SubViewport.UPDATE_ALWAYS
-
+	
+	cursor_animated_sprite_2d.sprite_frames = sprite_frames
 	cursor_animated_sprite_2d.animation_changed.connect(_on_animated_sprite_2d_animation_changed)
-	cursor_animated_sprite_2d.animation_changed.connect(_on_animated_sprite_2d_animation_finished)
+	#cursor_animated_sprite_2d.animation_changed.connect(_on_animated_sprite_2d_animation_finished)
 	_on_animated_sprite_2d_animation_changed()
-	_on_animated_sprite_2d_animation_finished()
-
-	await get_tree().create_timer(2.0).timeout
+	#_on_animated_sprite_2d_animation_finished()
+	
 	play("runing")
 
 func _process(_delta: float) -> void:
 	if not enable:
+		return
+	
+	if Engine.is_editor_hint():
+		if cursor_animated_sprite_2d.sprite_frames != sprite_frames:
+			cursor_animated_sprite_2d.sprite_frames = sprite_frames
+	
+	if sprite_frames == null:
 		return
 	
 	var new_texture = ImageTexture.create_from_image(get_texture().get_image())
@@ -42,9 +47,10 @@ func _process(_delta: float) -> void:
 	update_mouse_cursor_state()
 
 func play(anima_name:String):
-	if not cursor_animated_sprite_2d.sprite_frames.get_animation_names().has(anima_name):
-		assert(false,"anima_name 不存在！请检查名称！")
+	if not sprite_frames.get_animation_names().has(anima_name):
+		push_warning("无效的动画名称！请检查代码！")
 		return
+	
 	cursor_animated_sprite_2d.play(anima_name)
 
 func _get_curr_animtion_frame_texture_size()->Vector2:
@@ -53,32 +59,11 @@ func _get_curr_animtion_frame_texture_size()->Vector2:
 func _on_animated_sprite_2d_animation_changed() -> void:
 	size = _get_curr_animtion_frame_texture_size()
 
-func _on_animated_sprite_2d_animation_finished() -> void:
-	pass # Replace with function body.
-
-func _get_cursor_animation_data_names()->Array[StringName]:
-	var cursor_animation_data_names:Array[StringName] = []
-	for cursor_animation_data:CursorAnimationData in cursor_animation_data_array:
-		cursor_animation_data_names.append(cursor_animation_data.name)
-	return cursor_animation_data_names
-
 func _get_configuration_warnings():
 	var warnings = []
 	
-	## 检查 sprite_frames 配置 和 name 是否统一
-	if sprite_frames == null:
-		warnings.append("请生成一个 sprite_frames ")
-	else:
-		var anima_names = sprite_frames.get_animation_names()
-		if anima_names.size() == 0:
-			warnings.append("请在 sprite_frames 中配置动画效果")
-		else:
-			for corsor_anima_name:StringName in _get_cursor_animation_data_names():
-				if not anima_names.has(corsor_anima_name):
-					warnings.append("错误的name！请检查数据配置！")
-					break
-		
-	
-	## 可能的检查： 纹理大小 * 缩放系数 后是否满足条件
-	
 	return warnings
+
+## 目前问题：希望有一个简单的易配置的动画节点完成动画工作
+## 与外界通信的方式
+## 我现在可以不需要连续执行动画的能力，但我需要配置不同动画的不同鼠标特性

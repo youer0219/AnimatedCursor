@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="CursorAnimationData" load_steps=2 format=3 uid="uid://cp05ohi8s5ufl"]
-
-[ext_resource type="Script" uid="uid://b8jw6j11xa6v5" path="res://animated_mouse/cursor_animation_data/cursor_animation_data.gd" id="1_a5t0d"]
-
-[resource]
-script = ExtResource("1_a5t0d")
-name = &""
-cursor_offect = Vector2(0, 0)
-metadata/_custom_type_script = "uid://b8jw6j11xa6v5"
