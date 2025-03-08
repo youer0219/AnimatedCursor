@@ -14,9 +14,7 @@ extends SubViewport
 
 func _ready() -> void:
 	_set_subviewport()
-	
-	await get_tree().create_timer(4.0).timeout
-	animation_player.play("example")
+
 
 func play_cursor_animation(animation_name:StringName = &"", custom_blend: float = -1, custom_speed: float = 1.0, from_end: bool = false):
 	## 缺少对 animation_name 的检查。暂时没有好的方法。但不会造成崩溃。
@@ -58,8 +56,28 @@ func _set_enable(value:bool):
 func _get_configuration_warnings():
 	var warnings = []
 	
-	if animation_player.autoplay == "":
-		warnings.append("animation_player 应该指定自动加载动画作为默认鼠标动画")
+	if get_children().size() == 0:
+		warnings.append("请添加一个用于显示的2D节点")
+	else:
+		var has_node_2d_child:bool = false
+		var has_node_3d_child:bool = false
+		for child in get_children():
+			if child.is_class("Node2D"):
+				has_node_2d_child = true
+			if child.is_class("Node3D"):
+				has_node_3d_child = true
+		
+		if not has_node_2d_child:
+			warnings.append("请添加一个用于显示的2D节点")
+		
+		if has_node_3d_child:
+			warnings.append("3D渲染已被禁用，不建议使用Node3D节点")
+	
+	if animation_player == null:
+		warnings.append("应当指定 animation_player,否则无法正常工作")
+	else:
+		if animation_player.autoplay == "":
+			warnings.append("animation_player 应该指定自动加载动画作为默认鼠标动画并保存")
 	
 	return warnings
 

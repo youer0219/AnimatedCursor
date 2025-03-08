@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cx1vxdb2idt65"]
 
-[ext_resource type="Script" uid="uid://bqc8yawe2did3" path="res://animatied_cursor/animated_cursor.gd" id="1_2kmc2"]
+[ext_resource type="Script" uid="uid://bqc8yawe2did3" path="res://animated_cursor.gd" id="1_2kmc2"]
 
 [node name="AnimatedCursor" type="SubViewport"]
 disable_3d = true
