@@ -1,20 +1,23 @@
 @tool
 extends SubViewport
-# name AnimatedCursor
+# class_name AnimatedCursor
+
 
 @export var enable:bool = true:set = _set_enable
-
-@export var animation_player:AnimationPlayer
-
-## 与图像中心的偏移大小
-@export var cursor_host_offect:Vector2 = Vector2.ZERO
 ## 默认的禁用动画的名称
 @export var disable_anima_name:String = "RESET"
+@export var animation_player:AnimationPlayer
 
+@export_group("通过 AnimationPlayer 配置")
+## 与图像中心的偏移大小
+@export var cursor_host_offect:Vector2 = Vector2.ZERO
+## 鼠标类型
+@export var curr_cursor_shape:Input.CursorShape = Input.CursorShape.CURSOR_ARROW
+## 控制鼠标模式
+@export var curr_cursor_mode:Input.MouseMode = Input.MouseMode.MOUSE_MODE_VISIBLE
 
 func _ready() -> void:
 	_set_subviewport()
-
 
 func play_cursor_animation(animation_name:StringName = &"", custom_blend: float = -1, custom_speed: float = 1.0, from_end: bool = false):
 	## 缺少对 animation_name 的检查。暂时没有好的方法。但不会造成崩溃。
@@ -24,16 +27,20 @@ func _process(_delta: float) -> void:
 	_update_cursor()
 
 func _update_cursor():
+	## 避免影响编辑器中的鼠标
+	if Engine.is_editor_hint():
+		return
+	
 	if not enable:
 		return
 	
 	## TODO:如何检查图像是否为空白，避免无光标？
 	
-	## TODO:目前只考虑了默认的指向鼠标，没有考虑好如何利用不同种类的鼠标
-	## 补充：无思路。统一为 CURSOR_ARROW 类型设置自定义鼠标可能更好。
-
 	var new_texture = ImageTexture.create_from_image(get_texture().get_image())
-	Input.set_custom_mouse_cursor(new_texture,Input.CursorShape.CURSOR_ARROW,new_texture.get_size()/2.0 + cursor_host_offect)
+	## WARNING: 需要确保 size 的大小与实际要展示的 texture 匹配。
+	Input.set_custom_mouse_cursor(new_texture,curr_cursor_shape,size/2.0 + cursor_host_offect)
+	assert(curr_cursor_mode != 5,"错误的 curr_cursor_mode 数据！请不要设置为 MOUSE_MODE_MAX 模式")
+	Input.mouse_mode = curr_cursor_mode
 	update_mouse_cursor_state()
 
 func _set_subviewport():
@@ -61,6 +68,7 @@ func _get_configuration_warnings():
 	else:
 		var has_node_2d_child:bool = false
 		var has_node_3d_child:bool = false
+		
 		for child in get_children():
 			if child.is_class("Node2D"):
 				has_node_2d_child = true
