@@ -1,8 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://wg0vftif0ckm"]
+[gd_scene load_steps=14 format=3 uid="uid://wg0vftif0ckm"]
 
+[ext_resource type="Script" uid="uid://dooqofj1o8hs5" path="res://animated_cursor_demo/animated_cursor_demo.gd" id="1_3umim"]
 [ext_resource type="PackedScene" uid="uid://cx1vxdb2idt65" path="res://animated_cursor.tscn" id="2_3umim"]
 [ext_resource type="Texture2D" uid="uid://ymgf4ksx51ms" path="res://animated_cursor_demo/assets/cursors/crosshair009.png" id="2_414jv"]
 [ext_resource type="Texture2D" uid="uid://bgspuji0rqpnc" path="res://animated_cursor_demo/assets/cursors/crosshair010.png" id="3_fxfhr"]
+[ext_resource type="Texture2D" uid="uid://byqyoftkjtes2" path="res://animated_cursor_demo/assets/cursors/crosshair120.png" id="4_ha1n3"]
+[ext_resource type="Texture2D" uid="uid://crv3jyk4ojt1s" path="res://animated_cursor_demo/assets/cursors/crosshair121.png" id="5_dagub"]
+[ext_resource type="Texture2D" uid="uid://ct6ku5lnofevw" path="res://animated_cursor_demo/assets/cursors/crosshair122.png" id="6_8lftc"]
+[ext_resource type="Texture2D" uid="uid://dbck1vicu77v2" path="res://animated_cursor_demo/assets/cursors/crosshair011.png" id="7_dagub"]
 
 [sub_resource type="Animation" id="Animation_lvbug"]
 length = 0.001
@@ -53,6 +58,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimatedCursor/ShowSprite2D:texture")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_fxfhr")]
 }
 
 [sub_resource type="Animation" id="Animation_oiw63"]
@@ -133,19 +150,191 @@ tracks/5/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_3umim"]
+resource_name = "example02"
+length = 0.6
+loop_mode = 2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedCursor:cursor_host_offect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedCursor:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(72, 72)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedCursor:curr_cursor_shape")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedCursor:curr_cursor_mode")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimatedCursor/ShowSprite2D:texture")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("4_ha1n3"), ExtResource("5_dagub"), ExtResource("6_8lftc")]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AnimatedCursor/ShowSprite2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(36, 36)]
+}
+
+[sub_resource type="Animation" id="Animation_ha1n3"]
+resource_name = "example"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedCursor:cursor_host_offect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedCursor:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(72, 72)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedCursor/ShowSprite2D:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_fxfhr"), ExtResource("7_dagub"), ExtResource("3_fxfhr")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedCursor/ShowSprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(36, 36)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimatedCursor:curr_cursor_shape")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AnimatedCursor:curr_cursor_mode")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AnimatedCursor")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"example02", -1.0, 1.0, false],
+"method": &"play_cursor_animation"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_eblq5"]
 _data = {
 &"RESET": SubResource("Animation_lvbug"),
-&"example": SubResource("Animation_oiw63")
+&"example01": SubResource("Animation_oiw63"),
+&"example02": SubResource("Animation_3umim"),
+&"example03": SubResource("Animation_ha1n3")
 }
 
 [node name="AnimatedCursorDemo" type="Node"]
+script = ExtResource("1_3umim")
 
 [node name="CursorAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_eblq5")
 }
-autoplay = "example"
+autoplay = "example01"
 
 [node name="AnimatedCursor" parent="." node_paths=PackedStringArray("animation_player") instance=ExtResource("2_3umim")]
 size = Vector2i(2, 2)
