@@ -25,6 +25,10 @@ func play_cursor_animation(animation_name:StringName = &"", custom_blend: float 
 	## 缺少对 animation_name 的检查。暂时没有好的方法。但不会造成崩溃。
 	animation_player.play(animation_name,custom_blend,custom_speed,from_end)
 
+## 供动画节点使用。通过方法单次设置，避免无法更改。
+static func set_cursor_mode(mode:Input.MouseMode):
+	Input.mouse_mode = mode
+
 func _process(_delta: float) -> void:
 	_update_cursor()
 
