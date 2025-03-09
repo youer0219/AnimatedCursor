@@ -2,14 +2,15 @@
 extends SubViewport
 # class_name AnimatedCursor
 
-
+## 未启动时恢复默认鼠标样式。注意，如果animation_player配置有误，即使启动也可能不工作！
 @export var enable:bool = true:set = _set_enable
+## 配置鼠标动画的节点
+@export var animation_player:AnimationPlayer
 ## 默认的禁用动画的名称
 @export var disable_anima_name:String = "RESET"
-@export var animation_player:AnimationPlayer
 
 @export_group("通过 AnimationPlayer 配置")
-## 与图像中心的偏移大小
+## 与图像中心的偏移大小。向右向下为正。
 @export var cursor_host_offect:Vector2 = Vector2.ZERO
 ## 鼠标类型
 @export var curr_cursor_shape:Input.CursorShape = Input.CursorShape.CURSOR_ARROW
@@ -17,6 +18,7 @@ extends SubViewport
 @export var curr_cursor_mode:Input.MouseMode = Input.MouseMode.MOUSE_MODE_VISIBLE
 
 func _ready() -> void:
+	assert(animation_player,"未配置 AnimationPlayer 节点。无法正常工作！")
 	_set_subviewport()
 
 func play_cursor_animation(animation_name:StringName = &"", custom_blend: float = -1, custom_speed: float = 1.0, from_end: bool = false):
@@ -34,7 +36,13 @@ func _update_cursor():
 	if not enable:
 		return
 	
-	## TODO:如何检查图像是否为空白，避免无光标？
+	if animation_player == null:
+		push_warning(name + " animation_player 为空。无法正常工作！")
+		return
+	
+	## 禁用动画播放时不启动功能。默认的无效动画名称（""）表明没有启动动画，也不启动功能。
+	if animation_player.current_animation == disable_anima_name or animation_player.current_animation == "":
+		return
 	
 	var new_texture = ImageTexture.create_from_image(get_texture().get_image())
 	## WARNING: 需要确保 size 的大小与实际要展示的 texture 匹配。
@@ -58,6 +66,8 @@ func _set_enable(value:bool):
 		animation_player.play(disable_anima_name)
 		Input.set_custom_mouse_cursor(null)
 	else:
+		## 目前禁用后重新启用，使用的是场景自动加载动画
+		## 如有需求，也可以使用 assigned_animation 属性，其可以用来记录上一次运行的动画
 		animation_player.play(animation_player.autoplay)
 
 func _get_configuration_warnings():
