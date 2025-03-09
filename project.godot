@@ -15,14 +15,6 @@ run/main_scene="uid://wg0vftif0ckm"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
-[autoload]
-
-CoreSystem="*res://addons/godot_core_system/source/core_system.gd"
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/godot_core_system/plugin.cfg")
-
 [godot_core_system]
 
 modules={}

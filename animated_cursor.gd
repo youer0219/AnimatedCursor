@@ -18,7 +18,8 @@ extends SubViewport
 @export var curr_cursor_mode:Input.MouseMode = Input.MouseMode.MOUSE_MODE_VISIBLE
 
 func _ready() -> void:
-	assert(animation_player,"未配置 AnimationPlayer 节点。无法正常工作！")
+	if not Engine.is_editor_hint():
+		assert(animation_player,"未配置 AnimationPlayer 节点。无法正常工作！")
 	_set_subviewport()
 
 func play_cursor_animation(animation_name:StringName = &"", custom_blend: float = -1, custom_speed: float = 1.0, from_end: bool = false):
