@@ -9,37 +9,37 @@ This component implements dynamic mouse cursor effects using `SubViewport` and `
 
 ## Implementation Principle
 1. **Rendering Pipeline**  
-   • Uses `SubViewport` as canvas for real-time rendering of 2D child node animations.
-   • Captures current frame via `ImageTexture` as cursor texture.
+   - Uses `SubViewport` as canvas for real-time rendering of 2D child node animations.
+   - Captures current frame via `ImageTexture` as cursor texture.
 
 2. **Animation Driver**  
-   • Controls cursor animations through `AnimationPlayer`, supporting multi-animation switching.
-   • Updates cursor texture frame-by-frame during animation playback.
+   - Controls cursor animations through `AnimationPlayer`, supporting multi-animation switching.
+   - Updates cursor texture frame-by-frame during animation playback.
 
 3. **Mode Control**  
-   • Supports `Input.CursorShape` defined cursor types.
-   • Configurable `MouseMode` for cursor visibility/lock states.
+   - Supports `Input.CursorShape` defined cursor types.
+   - Configurable `MouseMode` for cursor visibility/lock states.
 
 ---
 
 ## Configuration Guide
 
 ### 1. Scene Setup
-• Add `SubViewport` node and attach `animated_cursor.gd` script.
-• Add **2D nodes** (e.g. Sprite/AnimatedSprite) under SubViewport as cursor graphics.
+- Add `SubViewport` node and attach `animated_cursor.gd` script.
+- Add **2D nodes** (e.g. Sprite/AnimatedSprite) under SubViewport as cursor graphics.
 
 ### 2. Animation Configuration
-• Link an `AnimationPlayer` node.
-• Create animations:
-  • Default animation: Set automatically loaded animation in `AnimationPlayer` as default.
-  • Disabled animation: Default named `RESET`.
-• Recommended to reference demo animations. Notes:
-    ◦ AnimatedCursor's `size` property should match actual graphic size (typically image size * scale factor)
-    ◦ Avoid sizes exceeding cursor limits. Max allowed size ≤256×256. Recommended ≤128×128 for stability.
-        ▪ Web platforms enforce 128×128 maximum. Cursors >32×32 only display when fully within page boundaries for security.
-    ◦ Position Node2D elements (e.g. Sprite2D) at SubViewport center (size/2 coordinates).
-    ◦ Use AnimationPlayer's track copy/paste feature for efficient animation setup.
-• Preview SubViewport display in-editor to verify animations.
+- Link an `AnimationPlayer` node.
+- Create animations:
+  - Default animation: Set automatically loaded animation in `AnimationPlayer` as default.
+  - Disabled animation: Default named `RESET`.
+- Recommended to reference demo animations. Notes:
+    - AnimatedCursor's `size` property should match actual graphic size (typically image size * scale factor)
+    - Avoid sizes exceeding cursor limits. Max allowed size ≤256×256. Recommended ≤128×128 for stability.
+        - Web platforms enforce 128×128 maximum. Cursors >32×32 only display when fully within page boundaries for security.
+    - Position Node2D elements (e.g. Sprite2D) at SubViewport center (size/2 coordinates).
+    - Use AnimationPlayer's track copy/paste feature for efficient animation setup.
+- Preview SubViewport display in-editor to verify animations.
 
 ### 3. Parameter Reference (Exported Variables)
 | Property | Description |
@@ -79,10 +79,10 @@ Runtime console outputs operation logs. Recommended to test directly.
 • Must have valid `AnimationPlayer` with properly configured animations
 
 ❗ **Troubleshooting**
-• Editor preview failure: Test in runtime
-• Animation not updating: Verify `UPDATE_ALWAYS` mode
-• Missing cursor: Check SubViewport size matches graphic dimensions
-• 3D nodes invalid: Component forcibly disables 3D rendering
+- Editor preview failure: Test in runtime
+- Animation not updating: Verify `UPDATE_ALWAYS` mode
+- Missing cursor: Check SubViewport size matches graphic dimensions
+- 3D nodes invalid: Component forcibly disables 3D rendering
 
 🔧 Configuration errors show yellow warnings in Godot editor bottom panel!
 
